@@ -8,19 +8,26 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "PterodactylObjects",
-            targets: ["PterodactylObjects"]
+            name: "PterodactylClientObjects",
+            targets: ["PterodactylClientObjects"]
         ),
+        .library(
+            name: "PterodactylCRUD",
+            targets: ["PterodactylCRUD"]
+        ),
+        .library(name: "PterodactylApplicationObjects", targets: ["PterodactylApplicationObjects"])
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "PterodactylObjects"
+            name: "PterodactylClientObjects"
         ),
+        .target(name: "PterodactylCRUD", dependencies: ["PterodactylClientObjects", "PterodactylApplicationObjects"]),
+        .target(name: "PterodactylApplicationObjects"),
         .testTarget(
-            name: "PterodactylObjectsTests",
-            dependencies: ["PterodactylObjects"]
+            name: "PterodactylClientObjectsTests",
+            dependencies: ["PterodactylClientObjects"]
         ),
     ],
     swiftLanguageModes: [.v6]
